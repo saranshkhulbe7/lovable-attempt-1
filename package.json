@@ -1,0 +1,24 @@
+{
+  "name": "lovable",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@latest",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check-types": "turbo run check-types",
+    "db:generate": "turbo run db:generate --filter=@repo/db",
+    "db:migrate:local": "turbo run db:migrate:local --filter=@repo/db --",
+    "infra:local:up": "docker compose -f infra/docker/docker-compose.local.yml up -d",
+    "infra:local:down": "docker compose -f infra/docker/docker-compose.local.yml down"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "turbo": "latest",
+    "typescript": "latest"
+  }
+}
