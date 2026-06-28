@@ -1,0 +1,24 @@
+{
+  "name": "@lovable/backend",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun --env-file=../../.env --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@lovable/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@lovable/db": "workspace:*",
+    "@hono/zod-validator": "^0.8.0",
+    "hono": "^4.12.27",
+    "ioredis": "^5.11.1",
+    "zod": "^4.4.3"
+  }
+}

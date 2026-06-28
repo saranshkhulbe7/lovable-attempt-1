@@ -1,0 +1,38 @@
+generator client {
+    provider = "prisma-client"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+enum SessionRevokedReason {
+    LOGOUT
+    SESSION_REPLACED
+    MANUAL_REVOKE
+}
+
+model User {
+    id           String @id @default(uuid())
+    email        String @unique
+    passwordHash String
+
+    session   Session?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Session {
+    id           String @id @default(uuid())
+    tokenHash    String @unique
+    userId       String @unique
+    userRelation User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    expiresAt    DateTime
+    revokedAt    DateTime?
+    revokeReason SessionRevokedReason?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

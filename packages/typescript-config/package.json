@@ -1,5 +1,5 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@lovable/typescript-config",
   "private": true,
   "type": "module",
   "exports": {

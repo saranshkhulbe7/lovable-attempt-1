@@ -1,0 +1,7 @@
+{
+  "extends": "@lovable/typescript-config/bun",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": ["src"]
+}
