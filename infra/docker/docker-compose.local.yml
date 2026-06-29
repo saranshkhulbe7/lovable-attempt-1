@@ -21,6 +21,34 @@ services:
     volumes:
       - lovable_redis:/data
 
+  backend:
+    build:
+      dockerfile: apps/backend/Dockerfile
+      context: ../..
+    container_name: lovable-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://app:app@postgres:5432/lovable?schema=public
+      REDIS_URL: redis://redis:6379
+      BACKEND_PORT: 4000
+      FRONTEND_ORIGIN: http://localhost:3000
+      COOKIE_SECURE: "false"
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "4000:4000"
+  frontend:
+    build:
+      dockerfile: apps/frontend/Dockerfile
+      context: ../..
+    container_name: lovable-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - 5173:80
+
 volumes:
   lovable_pg:
   lovable_redis:

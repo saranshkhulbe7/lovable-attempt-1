@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "build": "dotenv -e .env -- vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "preview": "vite preview --host 0.0.0.0"
   },
@@ -17,7 +17,8 @@
     "react-dom": "latest",
     "react-router-dom": "latest",
     "sonner": "^2.0.7",
-    "zod": "latest"
+    "zod": "latest",
+    "dotenv-cli": "^11.0.0"
   },
   "devDependencies": {
     "@lovable/typescript-config": "workspace:*",
