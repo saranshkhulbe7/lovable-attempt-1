@@ -1,0 +1,10 @@
+{
+  "extends": "@lovable/typescript-config/react",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@lovable/ui/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

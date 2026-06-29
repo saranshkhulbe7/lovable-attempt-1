@@ -59,7 +59,7 @@ export const authMiddleware = createMiddleware(async (c, next) => {
   if (
     !session ||
     session.revokedAt ||
-    session.expiresAt.getTime() >= Date.now()
+    session.expiresAt.getTime() <= Date.now()
   ) {
     throw new AppError("Unauthorized", 401);
   }

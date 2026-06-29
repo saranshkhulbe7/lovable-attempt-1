@@ -11,6 +11,8 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "check-types": "turbo run check-types",
+    "frontend:dev": "bun --filter @lovable/frontend dev",
+    "backend:dev": "bun --filter @lovable/backend dev",
     "db:generate": "turbo run db:generate --filter=@lovable/db ",
     "db:migrate:local": "turbo run db:migrate:local --filter=@lovable/db --",
     "infra:local:up": "docker compose -f infra/docker/docker-compose.local.yml up -d",
