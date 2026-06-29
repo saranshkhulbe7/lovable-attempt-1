@@ -5,8 +5,8 @@ import routes from "~react-pages";
 
 function RouteFallback() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#08080b] text-zinc-100">
-      <LoaderCircle className="size-5 animate-spin text-zinc-400" />
+    <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
+      <LoaderCircle className="size-5 animate-spin text-muted-foreground" />
     </main>
   );
 }

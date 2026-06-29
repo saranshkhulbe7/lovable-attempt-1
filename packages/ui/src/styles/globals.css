@@ -6,64 +6,79 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Saransh — coding agent workspace
+  Direction: "warm graphite + amber terminal".
+  A warm, near-monochrome graphite surface with a single restrained amber
+  signal reserved for the things that matter: focus, the active thread, the
+  prompt glyph, and the one primary action on a screen.
+*/
+
 :root {
-  --background: oklch(0.08 0.01 285);
-  --foreground: oklch(0.985 0 0);
+  --background: oklch(0.166 0.006 75);
+  --foreground: oklch(0.941 0.008 83);
 
-  --card: oklch(0.14 0.012 285);
-  --card-foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0.006 75);
+  --card-foreground: oklch(0.941 0.008 83);
 
-  --popover: oklch(0.14 0.012 285);
-  --popover-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.198 0.006 75);
+  --popover-foreground: oklch(0.941 0.008 83);
 
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.08 0.01 285);
+  /* amber signal — muted, terminal-phosphor lineage, never neon */
+  --primary: oklch(0.802 0.13 81);
+  --primary-foreground: oklch(0.22 0.03 78);
 
-  --secondary: oklch(0.2 0.015 285);
-  --secondary-foreground: oklch(0.94 0.004 285);
+  --secondary: oklch(0.255 0.006 75);
+  --secondary-foreground: oklch(0.92 0.006 83);
 
-  --muted: oklch(0.19 0.014 285);
-  --muted-foreground: oklch(0.65 0.018 285);
+  --muted: oklch(0.235 0.006 75);
+  --muted-foreground: oklch(0.66 0.011 80);
 
-  --accent: oklch(0.25 0.08 323);
-  --accent-foreground: oklch(0.96 0.018 325);
+  --accent: oklch(0.272 0.008 75);
+  --accent-foreground: oklch(0.941 0.008 83);
 
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.62 0.2 25);
 
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.75 0.14 325);
+  --border: oklch(0.93 0.01 83 / 9%);
+  --input: oklch(0.93 0.01 83 / 13%);
+  --ring: oklch(0.802 0.13 81);
 
   --radius: 0.5rem;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono",
+    Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 .dark {
-  --background: oklch(0.08 0.01 285);
-  --foreground: oklch(0.985 0 0);
+  --background: oklch(0.166 0.006 75);
+  --foreground: oklch(0.941 0.008 83);
 
-  --card: oklch(0.14 0.012 285);
-  --card-foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0.006 75);
+  --card-foreground: oklch(0.941 0.008 83);
 
-  --popover: oklch(0.14 0.012 285);
-  --popover-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.198 0.006 75);
+  --popover-foreground: oklch(0.941 0.008 83);
 
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.08 0.01 285);
+  --primary: oklch(0.802 0.13 81);
+  --primary-foreground: oklch(0.22 0.03 78);
 
-  --secondary: oklch(0.2 0.015 285);
-  --secondary-foreground: oklch(0.94 0.004 285);
+  --secondary: oklch(0.255 0.006 75);
+  --secondary-foreground: oklch(0.92 0.006 83);
 
-  --muted: oklch(0.19 0.014 285);
-  --muted-foreground: oklch(0.65 0.018 285);
+  --muted: oklch(0.235 0.006 75);
+  --muted-foreground: oklch(0.66 0.011 80);
 
-  --accent: oklch(0.25 0.08 323);
-  --accent-foreground: oklch(0.96 0.018 325);
+  --accent: oklch(0.272 0.008 75);
+  --accent-foreground: oklch(0.941 0.008 83);
 
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.62 0.2 25);
 
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.75 0.14 325);
+  --border: oklch(0.93 0.01 83 / 9%);
+  --input: oklch(0.93 0.01 83 / 13%);
+  --ring: oklch(0.802 0.13 81);
 }
 
 @theme inline {
@@ -94,6 +109,10 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -105,7 +124,100 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 28%, transparent);
+    color: var(--foreground);
+  }
+
+  /* quiet, precise scrollbars — they should read as engineered, not chrome */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--foreground) 16%, transparent)
+      transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklch, var(--foreground) 13%, transparent);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--foreground) 24%, transparent);
+    background-clip: padding-box;
+  }
+}
+
+@layer utilities {
+  /* the recurring signature: a faint blueprint grid used behind hero surfaces */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        color-mix(in oklch, var(--foreground) 4%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklch, var(--foreground) 4%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 38px 38px;
+  }
+
+  @keyframes caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .animate-caret {
+    animation: caret-blink 1.15s steps(1) infinite;
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-rise {
+    animation: rise-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-caret,
+    .animate-rise {
+      animation: none;
+    }
   }
 }

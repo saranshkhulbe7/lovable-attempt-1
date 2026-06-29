@@ -28,16 +28,18 @@ export default function LogoutPage() {
   }, [navigate, queryClient]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#08080b] px-6 text-zinc-100">
-      <div className="w-full max-w-sm rounded-lg border border-white/10 bg-white/[0.04] p-6 text-center shadow-2xl shadow-black/40">
-        <span className="mx-auto flex size-10 items-center justify-center rounded-lg bg-white text-black">
+    <main className="flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
+      <div className="w-full max-w-sm rounded-xl border border-border bg-card p-8 text-center">
+        <span className="mx-auto flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
           <LogOut className="size-4" />
         </span>
-        <h1 className="mt-5 text-xl font-semibold text-white">Signing out</h1>
-        <p className="mt-2 text-sm text-zinc-500">
+        <h1 className="mt-5 font-display text-lg font-semibold text-foreground">
+          Signing out
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
           Closing the current session.
         </p>
-        <LoaderCircle className="mx-auto mt-5 size-5 animate-spin text-zinc-400" />
+        <LoaderCircle className="mx-auto mt-5 size-5 animate-spin text-muted-foreground" />
       </div>
     </main>
   );

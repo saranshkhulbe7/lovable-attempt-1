@@ -1,20 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Wordmark } from "@/components/logo";
 import { currentUserQueryKey } from "@/hooks/use-current-user";
 import { login, signup } from "@/lib/auth";
 
 import { Button } from "@lovable/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@lovable/ui/components/card";
 import { Input } from "@lovable/ui/components/input";
 import { Label } from "@lovable/ui/components/label";
 
@@ -22,21 +16,21 @@ type AuthMode = "login" | "signup";
 
 const modeCopy = {
   login: {
-    title: "Welcome back",
-    description: "Log in to your workspace.",
-    button: "Log in",
-    success: "Logged in",
+    title: "Sign in",
+    description: "Pick up where you left off.",
+    button: "Sign in",
+    success: "Signed in",
     alternateLabel: "New here?",
-    alternateAction: "Create account",
+    alternateAction: "Create an account",
     alternateHref: "/signup",
   },
   signup: {
     title: "Create your account",
-    description: "Start a Lovable-style workspace.",
+    description: "Start organizing work into projects and conversations.",
     button: "Create account",
     success: "Account created",
     alternateLabel: "Already have an account?",
-    alternateAction: "Log in",
+    alternateAction: "Sign in",
     alternateHref: "/login",
   },
 } satisfies Record<AuthMode, Record<string, string>>;
@@ -49,7 +43,7 @@ function getErrorMessage(error: unknown) {
     return error.response.data.message;
   }
 
-  return "Authentication failed";
+  return "Something went wrong. Try again.";
 }
 
 export function AuthCard({ mode }: { mode: AuthMode }) {
@@ -79,76 +73,74 @@ export function AuthCard({ mode }: { mode: AuthMode }) {
   }
 
   return (
-    <Card className="w-full max-w-md rounded-lg border-white/10 bg-[#101014]/90 py-7 text-white shadow-2xl shadow-black/40 backdrop-blur-xl">
-      <CardHeader className="space-y-5 px-7">
-        <span className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white text-black">
-          <Sparkles className="size-4" />
-        </span>
+    <div>
+      <Wordmark className="mb-12 lg:hidden" />
 
-        <div>
-          <CardTitle className="text-2xl text-white">{copy.title}</CardTitle>
-          <CardDescription className="mt-2 text-zinc-400">
-            {copy.description}
-          </CardDescription>
+      <header className="space-y-2">
+        <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground">
+          {copy.title}
+        </h1>
+        <p className="text-sm text-muted-foreground">{copy.description}</p>
+      </header>
+
+      <form onSubmit={submit} className="mt-8 space-y-5">
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-sm text-foreground">
+            Email
+          </Label>
+          <Input
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="you@example.com"
+            type="email"
+            autoComplete="email"
+            required
+            className="h-11"
+          />
         </div>
-      </CardHeader>
 
-      <CardContent className="px-7">
-        <form onSubmit={submit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-zinc-300">
-              Email
-            </Label>
-            <Input
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="you@example.com"
-              type="email"
-              autoComplete="email"
-              required
-              className="h-11 border-white/10 bg-black/30 text-white placeholder:text-zinc-600 focus-visible:border-fuchsia-300/50 focus-visible:ring-fuchsia-300/20"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-zinc-300">
+        <div className="space-y-2">
+          <div className="flex items-baseline justify-between">
+            <Label htmlFor="password" className="text-sm text-foreground">
               Password
             </Label>
-            <Input
-              id="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="At least 8 characters"
-              type="password"
-              autoComplete={
-                mode === "signup" ? "new-password" : "current-password"
-              }
-              minLength={8}
-              required
-              className="h-11 border-white/10 bg-black/30 text-white placeholder:text-zinc-600 focus-visible:border-fuchsia-300/50 focus-visible:ring-fuchsia-300/20"
-            />
+            {mode === "signup" && (
+              <span className="font-mono text-xs text-muted-foreground">
+                8+ characters
+              </span>
+            )}
           </div>
+          <Input
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="••••••••"
+            type="password"
+            autoComplete={mode === "signup" ? "new-password" : "current-password"}
+            minLength={8}
+            required
+            className="h-11"
+          />
+        </div>
 
-          <Button
-            className="h-11 w-full bg-white text-black hover:bg-zinc-200"
-            disabled={loading}
-          >
-            {loading ? "Please wait..." : copy.button}
-            {!loading && <ArrowRight className="size-4" />}
-          </Button>
-        </form>
+        <Button type="submit" className="group h-11 w-full" disabled={loading}>
+          {loading ? "Please wait…" : copy.button}
+          {!loading && (
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          )}
+        </Button>
+      </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
-          {copy.alternateLabel}{" "}
-          <Link
-            to={copy.alternateHref}
-            className="font-medium text-zinc-100 underline-offset-4 hover:underline"
-          >
-            {copy.alternateAction}
-          </Link>
-        </p>
-      </CardContent>
-    </Card>
+      <p className="mt-8 text-sm text-muted-foreground">
+        {copy.alternateLabel}{" "}
+        <Link
+          to={copy.alternateHref}
+          className="font-medium text-foreground underline-offset-4 hover:underline"
+        >
+          {copy.alternateAction}
+        </Link>
+      </p>
+    </div>
   );
 }
